@@ -1,0 +1,14 @@
+spring:
+  application:
+   name: GurbanMockInteview
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gurban_mock_interview
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 6637
