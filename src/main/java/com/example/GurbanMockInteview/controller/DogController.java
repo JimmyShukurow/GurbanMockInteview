@@ -1,10 +1,9 @@
 package com.example.GurbanMockInteview.controller;
 
+import com.example.GurbanMockInteview.dto.DogUpdateDTO;
 import com.example.GurbanMockInteview.service.Animal;
-import com.example.GurbanMockInteview.service.DogService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/dog")
@@ -16,8 +15,25 @@ public class DogController {
         this.dogService = dogService;
     }
 
-    @GetMapping("hello")
-    public String sayHello(){
-        return dogService.sayHello();
+    @GetMapping
+    public ResponseEntity<?> sayHello(){
+        return ResponseEntity.ok(dogService.getDogs());
+    }
+
+    @PostMapping
+    public ResponseEntity<?> addDog() {
+        dogService.addDog();
+        return ResponseEntity.ok("Dog added successfully");
+    }
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateDog(@PathVariable Long id, @RequestBody DogUpdateDTO dog) {
+        dogService.updateDog(id,dog);
+        return ResponseEntity.ok("Dog updated successfully");
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteDog(@PathVariable Long id) {
+        dogService.delete(id);
+        return ResponseEntity.ok("Dog deleted successfully");
     }
 }
